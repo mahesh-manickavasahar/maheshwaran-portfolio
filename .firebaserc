@@ -1,0 +1,19 @@
+{
+  "projects": {
+    "default": "mahesh-vasu",
+    "main": "maheshwaran-portfolio-c3cc3"
+  },
+  "targets": {
+    "maheshwaran-portfolio-c3cc3": {
+      "hosting": {
+        "oldsite": [
+          "maheshwaran-portfolio-c3cc3"
+        ],
+        "main": [
+          "maheshwaran-mv"
+        ]
+      }
+    }
+  },
+  "etags": {}
+}
