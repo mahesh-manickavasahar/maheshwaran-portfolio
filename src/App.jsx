@@ -5,6 +5,7 @@ import { SiKotlin, SiFirebase, SiJetpackcompose, SiAndroidstudio } from 'react-i
 import { MdPhoneAndroid } from 'react-icons/md';
 import { useInView } from 'react-intersection-observer';
 import emailjs from '@emailjs/browser';
+import { FaEye } from "react-icons/fa";
 
 const App = () => {
   const [ref] = useInView({
@@ -185,10 +186,10 @@ const App = () => {
 
   try {
   const result = await emailjs.sendForm(
-    import.meta.env.email_service_id, 
-    import.meta.env.email_template_id,
+    import.meta.env.VITE_EMAIL_SERVICE_ID, 
+    import.meta.env.VITE_EMAIL_TEMPLATE_ID,
     formRef.current,
-   import.meta.env.email_public_key
+   import.meta.env.VITE_EMAIL_PUBLIC_KEYcls
   );
   
   console.log('SUCCESS!', result.status, result.text);
@@ -267,7 +268,7 @@ const App = () => {
               initial="hidden"
               animate="visible"
             >
-              {['About', 'Skills', 'Projects', 'Experience', 'Contact'].map((item) => (
+              {['About', 'Skills', 'Projects', 'Education', 'Experience', 'Contact'].map((item) => (
                 <motion.a 
                   key={item}
                   href={`#${item.toLowerCase()}`}
@@ -276,7 +277,7 @@ const App = () => {
                   whileHover={{ y: -2 }}
                   whileTap={{ scale: 0.95 }}
                 >
-                  {item}
+                  {item === 'Education' ? 'Education & Certifications' : item}
                   <motion.span
                     className="absolute bottom-0 left-0 w-full h-0.5 bg-primary"
                     initial={{ scaleX: 0 }}
@@ -357,7 +358,7 @@ const App = () => {
                 className="md:hidden absolute right-4 top-16 w-48 bg-dark/95 rounded-lg shadow-xl overflow-hidden border border-gray-800"
               >
                 <div className="flex flex-col py-2">
-                  {['About', 'Skills', 'Projects', 'Experience', 'Contact'].map((item, index) => (
+                  {['About', 'Skills', 'Projects', 'Education', 'Experience', 'Contact'].map((item, index) => (
                     <React.Fragment key={item}>
                       <motion.a
                         href={`#${item.toLowerCase()}`}
@@ -366,9 +367,9 @@ const App = () => {
                         whileTap={{ scale: 0.98 }}
                         onClick={() => setIsMenuOpen(false)}
                       >
-                        {item}
+                        {item === 'Education' ? 'Education & Certifications' : item}
                       </motion.a>
-                      {index < ['About', 'Skills', 'Projects', 'Experience', 'Contact'].length - 1 && (
+                      {index < ['About', 'Skills', 'Projects', 'Education', 'Experience', 'Contact'].length - 1 && (
                         <div className="h-px bg-gray-800 mx-4" />
                       )}
                     </React.Fragment>
@@ -517,7 +518,7 @@ const App = () => {
             className="text-base md:text-xl mb-6 md:mb-8 text-gray-300"
             variants={fadeInUp}
           >
-            Mid-Level Android Developer | Proficient in Kotlin, Jetpack Compose, and XML | Experienced in Android UI Development and SDK Integration
+           Android Developer (2 Years) | Proficient in Kotlin, Jetpack Compose, and XML | Experienced in Android UI Development and SDK Integration
           </motion.p>
 
           {/* Skill tags */}
@@ -583,7 +584,7 @@ const App = () => {
               </motion.div>
               Download Resume
             </motion.button>
-            <motion.button
+           <motion.button
               {...enhancedHoverAnimation}
               className="bg-transparent border-2 border-primary text-primary hover:bg-primary/10 px-6 py-2.5 md:px-8 md:py-3 rounded-full text-base md:text-lg font-semibold transition-colors flex items-center justify-center gap-2"
               onClick={handleViewResume}
@@ -595,10 +596,10 @@ const App = () => {
                 transition={{
                   duration: 1.5,
                   repeat: Infinity,
-                  ease: "easeInOut"
+                  ease: "easeInOut",
                 }}
               >
-                <FaDownload />
+                <FaEye />
               </motion.div>
               View Resume
             </motion.button>
@@ -680,10 +681,10 @@ const App = () => {
                 </div>
                 <ul className="space-y-2 text-gray-300">
                   <li>• Kotlin</li>
-                  <li>• Jetpack Compose</li>
-                  <li>• XML Layouts & Views </li>
-                  <li>• Android SDK & Components</li>
+                  <li>• Jetpack Compose & XML Layouts & Views</li>
+                  <li>• Android SDK & Components </li>
                   <li>• MVVM Architecture</li>
+                  <li>• Location Services & GPS</li>
                 </ul>
               </div>
             </motion.div>
@@ -722,7 +723,7 @@ const App = () => {
                   <li>• Android Studio</li>
                   <li>• Git Version Control (GitHub, Bitbucket)</li>
                   <li>• Firebase Services</li>
-                  <li>• Gradle Build System</li>
+                  <li>• Postman & MongoDB</li>
                   <li>• Google Play Console</li>
                 </ul>
               </div>
@@ -748,7 +749,7 @@ const App = () => {
             Featured Projects
           </motion.h2>
           <motion.div 
-            className="grid grid-cols-1 md:grid-cols-2 gap-8"
+            className="grid grid-cols-1 gap-8"
             variants={staggerContainer}
           >
             {/* Project 1 */}
@@ -757,38 +758,65 @@ const App = () => {
               whileHover={cardHoverAnimation.whileHover}
             >
               <div className="bg-dark/50 rounded-xl overflow-hidden border border-gray-800">
-                <div className="h-48 flex items-center justify-center" style={{ backgroundColor: '#a4c63922' }}>
-                  <FaAndroid className="text-6xl" style={{ color: '#a4c639' }} />
-                </div>
+               
+                  <div className="h-64 md:h-72 flex items-center justify-center bg-gradient-to-br from-[#a4c63915] via-[#a4c63908] to-transparent relative overflow-hidden">
+                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#a4c63905] to-transparent animate-pulse"></div>
+                    <div className="relative h-40 w-40 sm:h-48 sm:w-48 md:h-56 md:w-56 flex items-center justify-center p-4">
+                      <div className="absolute inset-0 bg-[#a4c63910] rounded-2xl blur-xl"></div>
+                      <img 
+                        src="/ic-jusride.png"  
+                        alt="Jusride" 
+                        className="h-full w-full object-contain drop-shadow-2xl filter brightness-110 contrast-110 relative z-10 transition-transform duration-300 hover:scale-110"
+                      />
+                    </div>
+                  </div>
+
                 <div className="p-6">
                   <h3 className="text-xl font-bold mb-2">Wattawow – Ride Companion App</h3>
                   <p className="text-gray-300 mb-2">
                     <span className="font-semibold">White-labeled as "JusRide" on Play Store</span><br/>
                     <span className="block">Role: <span style={{ color: '#a4c639' }}>Android Developer</span></span>
-                    <span className="block">Tech Stack: Kotlin, Ola Maps SDK, Retrofit, Firebase Cloud Messaging, ViewPager2, Glide</span>
-                    <span className="block">Duration: Ongoing (Company Project)</span>
+                    <span className="block">Tech Stack: Kotlin, Ola Maps SDK, Retrofit, Firebase (FCM, Auth, Analytics), ViewPager2, Glide</span>
+                    <span className="block">Duration: February 2024 - Present (Production App)</span>
                   </p>
                   <p className="text-gray-300 mb-4">
-                    Contributed to the full-cycle development of Wattawow, a white-labeled ride-sharing and exploration app, deployed publicly under the name JusRide on the Google Play Store. The app helps users plan and track their rides with real-time maps, image-based ride previews, and push notifications.
+                    Contributed to the full-cycle development of Wattawow, a white-labeled ride-sharing and exploration app, deployed publicly under the name JusRide on the Google Play Store. The app combines social networking features with ride planning and bicycle service booking, helping users discover rides, connect with fellow cyclists, and book maintenance services.
                   </p>
-                  <ul className="text-gray-300 mb-4 list-disc pl-5 text-sm">
-                    <li>Integrated Ola Maps SDK (formerly Mapbox) for interactive map views and live ride tracking.</li>
-                    <li>Designed dynamic swipeable ride cards using ViewPager2 and implemented double-tap gestures for interaction.</li>
-                    <li>Implemented Retrofit to handle seamless REST API integration for ride data, maps, and user history.</li>
-                    <li>Used Firebase Cloud Messaging (FCM) for real-time push notifications based on ride events.</li>
-                    <li>Managed and optimized image loading using Glide, including support for large background images.</li>
-                    <li>Ensured smooth UI/UX with consistent themeing, transition animations, and map customization.</li>
+                  <p className="text-gray-300 mb-3 font-semibold">Key Contributions:</p>
+                  <ul className="text-gray-300 mb-4 list-disc pl-5 text-sm space-y-1">
+                    <li>Integrated Ola Maps SDK (formerly Mapbox) for interactive map views, custom markers, and live ride tracking with real-time GPS updates.</li>
+                    <li>Designed dynamic swipeable ride cards using ViewPager2 with custom page transformers and implemented double-tap gestures for quick interactions.</li>
+                    <li>Developed social networking features including user profiles, follower/following system, activity feeds, and engagement features (likes, comments, shares).</li>
+                    <li>Implemented Retrofit with OkHttp for seamless REST API integration, handling ride data, user content, service bookings, and payment processing.</li>
+                    <li>Integrated payment gateway for secure in-app bicycle service bookings and premium feature subscriptions.</li>
+                    <li>Used Firebase Cloud Messaging (FCM) for real-time push notifications based on ride events, social interactions, and booking confirmations.</li>
+                    <li>Implemented Firebase Authentication for secure user login and Firebase Analytics for tracking user engagement and conversion metrics.</li>
+                    <li>Managed and optimized image loading using Glide with custom transformations, memory caching, and support for large background images.</li>
+                    <li>Ensured smooth UI/UX with consistent theming, transition animations, map customization, and deep linking for marketing campaigns.</li>
+                    <li>Managed complete Play Store release cycle including AAB signing, metadata optimization, and version updates maintaining 99.9% crash-free rate.</li>
+                    <li>Collaborated with cross-functional teams in Agile sprints, participating in code reviews and technical discussions.</li>
+                  </ul>
+                  <p className="text-gray-300 mb-3 font-semibold">Technical Highlights:</p>
+                  <ul className="text-gray-300 mb-4 list-disc pl-5 text-sm space-y-1">
+                    <li>Architected using MVVM pattern with Repository layer for clean separation of concerns</li>
+                    <li>Implemented CI/CD pipeline via Bitbucket for automated builds and testing</li>
+                    <li>Optimized app performance with lazy loading, image compression, and efficient memory management</li>
+                    <li>Achieved consistent month-over-month user growth with positive user feedback</li>
                   </ul>
                   <div className="flex flex-wrap gap-2 mb-2">
                     <span className="px-3 py-1 rounded-full text-sm" style={{ backgroundColor: '#a4c63922', color: '#a4c639' }}>Kotlin</span>
                     <span className="px-3 py-1 rounded-full text-sm" style={{ backgroundColor: '#a4c63922', color: '#a4c639' }}>Ola Maps SDK</span>
                     <span className="px-3 py-1 rounded-full text-sm" style={{ backgroundColor: '#a4c63922', color: '#a4c639' }}>Retrofit</span>
                     <span className="px-3 py-1 rounded-full text-sm" style={{ backgroundColor: '#a4c63922', color: '#a4c639' }}>Firebase Cloud Messaging</span>
+                    <span className="px-3 py-1 rounded-full text-sm" style={{ backgroundColor: '#a4c63922', color: '#a4c639' }}>Firebase Auth</span>
+                    <span className="px-3 py-1 rounded-full text-sm" style={{ backgroundColor: '#a4c63922', color: '#a4c639' }}>Firebase Analytics</span>
                     <span className="px-3 py-1 rounded-full text-sm" style={{ backgroundColor: '#a4c63922', color: '#a4c639' }}>ViewPager2</span>
                     <span className="px-3 py-1 rounded-full text-sm" style={{ backgroundColor: '#a4c63922', color: '#a4c639' }}>Glide</span>
+                    <span className="px-3 py-1 rounded-full text-sm" style={{ backgroundColor: '#a4c63922', color: '#a4c639' }}>Room Database</span>
+                    <span className="px-3 py-1 rounded-full text-sm" style={{ backgroundColor: '#a4c63922', color: '#a4c639' }}>Payment Gateway</span>
                   </div>
                   <div className="flex items-center gap-2 mt-2">
-                    <a href="https://play.google.com/store/apps/details?id=com.jusride" target="_blank" rel="noopener noreferrer" className="underline font-medium" style={{ color: '#a4c639' }}>🔗 Live App: JusRide on Play Store</a>
+                    <a href="https://play.google.com/store/apps/details?id=com.milespeak.jusridemobile&pcampaignid=web_share" target="_blank" rel="noopener noreferrer" className="underline font-medium" style={{ color: '#a4c639' }}>🔗 Live App: JusRide on Play Store</a>
                   </div>
                   <div className="text-xs text-gray-400 mt-2">📝 Note: JusRide is a client-branded, white-labeled version of Wattawow, developed by our team.</div>
                 </div>
@@ -801,9 +829,18 @@ const App = () => {
               whileHover={cardHoverAnimation.whileHover}
             >
               <div className="bg-dark/50 rounded-xl overflow-hidden border border-gray-800">
-                <div className="h-48 flex items-center justify-center" style={{ backgroundColor: '#a4c63922' }}>
-                  <SiJetpackcompose className="text-6xl" style={{ color: '#a4c639' }} />
-                </div>
+                                  <div className="h-64 md:h-72 flex items-center justify-center bg-gradient-to-br from-[#a4c63915] via-[#a4c63908] to-transparent relative overflow-hidden">
+                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#a4c63905] to-transparent animate-pulse"></div>
+                    <div className="relative h-40 w-40 sm:h-48 sm:w-48 md:h-56 md:w-56 flex items-center justify-center p-4">
+                      <div className="absolute inset-0 bg-[#a4c63910] rounded-2xl blur-xl"></div>
+                      <img 
+                        src="/ic-ems.png"  
+                        alt="Leave Management System" 
+                        className="h-full w-full object-contain drop-shadow-2xl filter brightness-110 contrast-110 relative z-10 transition-transform duration-300 hover:scale-110"
+                      />
+                    </div>
+                  </div>
+
                 <div className="p-6">
                   <h3 className="text-xl font-bold mb-2">Leave Management App (Internal Training Project)</h3>
                   <p className="text-gray-300 mb-2">
@@ -829,6 +866,75 @@ const App = () => {
                   </div>
                   <div className="text-xs text-gray-400 mt-2">📌 Note: This app was created for internal training purposes and is not actively used in production.</div>
                 </div>
+              </div>
+            </motion.div>
+
+
+          </motion.div>
+        </div>
+      </motion.section>
+
+      {/* Education & Certifications Section */}
+      <motion.section 
+        id="education" 
+        className="py-20 bg-dark/50"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-100px" }}
+        variants={staggerContainer}
+      >
+        <div className="container mx-auto px-6">
+          <motion.h2 
+            className="text-4xl font-bold mb-12 text-center"
+            variants={letterAnimation}
+          >
+            Education & Certifications
+          </motion.h2>
+          <motion.div 
+            className="max-w-3xl mx-auto space-y-8"
+            variants={staggerContainer}
+          >
+            {/* Education 1 */}
+            <motion.div
+              variants={letterAnimation}
+              whileHover={cardHoverAnimation.whileHover}
+            >
+              <div className="bg-dark/50 p-6 rounded-xl border border-gray-800">
+                <div className="flex items-center gap-3 mb-3">
+                  <FaGraduationCap className="text-2xl text-primary" />
+                  <h3 className="text-xl font-bold">Bachelor of Engineering – Computer Science and Engineering</h3>
+                </div>
+                <p className="text-primary mb-2">Jeppiaar Engineering College, Chennai | 2019 – 2023</p>
+                <p className="text-gray-300 mb-2">
+                  Completed comprehensive coursework in software engineering, data structures, and algorithms.
+                </p>
+                <p className="text-gray-300">
+                  Gained hands-on experience in developing projects using Java, databases, and front-end technologies.
+                </p>
+              </div>
+            </motion.div>
+
+            {/* Certification 1 */}
+            <motion.div
+              variants={letterAnimation}
+              whileHover={cardHoverAnimation.whileHover}
+            >
+              <div className="bg-dark/50 p-6 rounded-xl border border-gray-800">
+                <div className="flex items-center gap-3 mb-3">
+                  <FaCode className="text-2xl text-primary" />
+                  <h3 className="text-xl font-bold">Java Full Stack Development Certification</h3>
+                </div>
+                <p className="text-primary mb-2">Q-Spiders, Chennai | August 2023 – February 2024</p>
+                <p className="text-gray-300 mb-2">Completed an intensive training program covering:</p>
+                <ul className="text-gray-300 list-disc pl-5 space-y-1">
+                  <li>Core Java – Object-Oriented Programming, Collections, Exception Handling</li>
+                  <li>MySQL Database Management – Queries, Joins, Normalization</li>
+                  <li>Front-end Technologies – HTML, CSS, JavaScript</li>
+                  <li>Software Development Best Practices – Version control, debugging, and code optimization</li>
+                </ul>
+                <p className="text-gray-300 mt-3">
+                  Developed practical projects demonstrating full-stack application development.
+                </p>
               </div>
             </motion.div>
           </motion.div>
@@ -904,7 +1010,7 @@ const App = () => {
             >
               <motion.a
                 href={`mailto:${EMAIL}`}
-                className="text-lg md:text-xl text-primary hover:text-secondary transition-colors"
+                className="text-lg md:text-xl text-primary hover:text-white visited:text-primary transition-colors"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
@@ -920,7 +1026,7 @@ const App = () => {
                   rotate: 5,
                   transition: { duration: 0.2 }
                 }}
-                href="https://github.com/mahesh-manickavasahar"
+                href="https://github.com/mahesh-manickavasahar/maheshwaran-portfolio"
                 className="text-2xl md:text-3xl text-gray-300 hover:text-primary"
               >
                 <FaGithub />
