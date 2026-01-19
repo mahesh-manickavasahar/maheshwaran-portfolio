@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
-import { FaGithub, FaLinkedin, FaTwitter, FaAndroid, FaJava, FaDownload, FaMobile, FaLaptopCode, FaArrowUp, FaGraduationCap, FaCode, FaTools, FaWhatsapp } from 'react-icons/fa';
+import { FaGithub, FaLinkedin, FaTwitter, FaAndroid, FaJava, FaDownload, FaMobile, FaLaptopCode, FaArrowUp, FaGraduationCap, FaCode, FaTools, FaWhatsapp, FaEnvelope, FaExternalLinkAlt, FaCheckCircle } from 'react-icons/fa';
 import { SiKotlin, SiFirebase, SiJetpackcompose, SiAndroidstudio } from 'react-icons/si';
 import { MdPhoneAndroid } from 'react-icons/md';
 import { useInView } from 'react-intersection-observer';
@@ -25,6 +25,7 @@ const App = () => {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState(null);
+  const [senderName, setSenderName] = useState('');
   const formRef = useRef();
 
   // Add email constant
@@ -179,28 +180,112 @@ const App = () => {
     }));
   };
 
+  const handleInputFocus = () => {
+    // Clear error message when user clicks on any input field
+    if (submitStatus === 'error') {
+      setSubmitStatus(null);
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
     setSubmitStatus(null);
 
-  try {
-  const result = await emailjs.sendForm(
-    import.meta.env.VITE_EMAIL_SERVICE_ID, 
-    import.meta.env.VITE_EMAIL_TEMPLATE_ID,
-    formRef.current,
-   import.meta.env.VITE_EMAIL_PUBLIC_KEYcls
-  );
-  
-  console.log('SUCCESS!', result.status, result.text);
-  setSubmitStatus('success');
-  setFormData({ name: '', email: '', message: '' });
-  
-} catch (error) {
-  setSubmitStatus('error');
-} finally {
-  setIsSubmitting(false);
-}}
+    // Validate environment variables before submitting
+    const serviceId = import.meta.env.VITE_EMAIL_SERVICE_ID;
+    const templateId = import.meta.env.VITE_EMAIL_TEMPLATE_ID;
+    const publicKey = import.meta.env.VITE_EMAIL_PUBLIC_KEY;
+
+    if (!serviceId || !templateId || !publicKey) {
+      console.error('Missing EmailJS Configuration:', {
+        serviceId: serviceId || 'MISSING',
+        templateId: templateId || 'MISSING',
+        publicKey: publicKey ? 'Set' : 'MISSING'
+      });
+      setSubmitStatus('error');
+      setIsSubmitting(false);
+      return;
+    }
+
+    // Validate form data
+    if (!formData.from_name || !formData.from_email || !formData.message) {
+      console.error('Form validation failed:', formData);
+      setSubmitStatus('error');
+      setIsSubmitting(false);
+      return;
+    }
+
+    try {
+      // Initialize EmailJS (optional but recommended)
+      emailjs.init(publicKey);
+
+      const result = await emailjs.sendForm(
+        serviceId, 
+        templateId,
+        formRef.current,
+        publicKey
+      );
+      
+      console.log('SUCCESS!', result.status, result.text);
+      
+      // Save sender's name before clearing form
+      setSenderName(formData.from_name);
+      setSubmitStatus('success');
+      setFormData({ from_name: '', from_email: '', message: '' });
+      
+      // Scroll to top after successful submission
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+      
+      // Clear success message after 3 seconds
+      setTimeout(() => {
+        setSubmitStatus(null);
+        setSenderName('');
+      }, 3000);
+      
+    } catch (error) {
+      // Enhanced error logging
+      console.error('=== EmailJS Error Details ===');
+      console.error('Error Object:', error);
+      console.error('Error Code:', error.code);
+      console.error('Error Text:', error.text);
+      console.error('Error Message:', error.message);
+      console.error('Error Status:', error.status);
+      
+      // Log configuration (without exposing full keys)
+      console.error('Configuration Check:', {
+        serviceId: serviceId ? `${serviceId.substring(0, 4)}...` : 'MISSING',
+        templateId: templateId ? `${templateId.substring(0, 4)}...` : 'MISSING',
+        publicKey: publicKey ? `${publicKey.substring(0, 4)}...` : 'MISSING',
+        formData: {
+          from_name: formData.from_name ? 'Set' : 'Missing',
+          from_email: formData.from_email ? 'Set' : 'Missing',
+          message: formData.message ? 'Set' : 'Missing'
+        }
+      });
+
+      // Check for specific error types
+      if (error.status === 400) {
+        console.error('400 Bad Request - Common causes:');
+        console.error('1. Invalid Service ID, Template ID, or Public Key');
+        console.error('2. Form field names do not match EmailJS template variables');
+        console.error('3. Missing required fields in EmailJS template');
+        console.error('4. EmailJS template not published or inactive');
+      }
+
+      // Log full error response if available
+      if (error.response) {
+        console.error('Error Response:', error.response);
+      }
+
+      setSubmitStatus('error');
+    } finally {
+      setIsSubmitting(false);
+    }
+  }
 
   // Update mobile styles
   const mobileStyles = {
@@ -380,6 +465,61 @@ const App = () => {
           </AnimatePresence>
         </div>
       </motion.nav>
+
+      {/* Success Message Popup */}
+      <AnimatePresence>
+        {submitStatus === 'success' && (
+          <motion.div
+            initial={{ opacity: 0, y: -100, scale: 0.8 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -100, scale: 0.8 }}
+            transition={{ 
+              type: "spring", 
+              stiffness: 200, 
+              damping: 20 
+            }}
+            className="fixed top-20 left-1/2 transform -translate-x-1/2 z-50 bg-dark/95 backdrop-blur-md border-2 border-primary/50 rounded-lg px-6 py-4 shadow-2xl"
+            style={{ 
+              boxShadow: "0 10px 40px rgba(164, 198, 57, 0.3)" 
+            }}
+          >
+            <div className="flex items-center justify-center gap-3">
+              <motion.div
+                initial={{ scale: 0, rotate: -180 }}
+                animate={{ scale: 1, rotate: 0 }}
+                transition={{ 
+                  type: "spring", 
+                  stiffness: 300, 
+                  damping: 20,
+                  delay: 0.1
+                }}
+              >
+                <FaCheckCircle className="text-3xl md:text-4xl" style={{ color: '#a4c639' }} />
+              </motion.div>
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.2 }}
+                className="flex flex-col"
+              >
+                <span className="text-base md:text-lg font-semibold" style={{ color: '#a4c639' }}>
+                  Message sent successfully!
+                </span>
+                {senderName && (
+                  <motion.span
+                    initial={{ opacity: 0, y: -5 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.3 }}
+                    className="text-sm md:text-base text-gray-300 mt-1"
+                  >
+                    Thank you, {senderName}!
+                  </motion.span>
+                )}
+              </motion.div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Scroll to Top Button */}
       <AnimatePresence>
@@ -1003,59 +1143,36 @@ const App = () => {
             className="max-w-2xl mx-auto"
             variants={staggerContainer}
           >
-            {/* Email display */}
+            {/* Contact buttons */}
             <motion.div 
-              className="text-center mb-8"
-              variants={letterAnimation}
+              className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-10"
+              variants={staggerContainer}
             >
-              <motion.a
-                href={`mailto:${EMAIL}`}
-                className="text-lg md:text-xl text-primary hover:text-white visited:text-primary transition-colors"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                {EMAIL}
-              </motion.a>
+              {[
+                { label: 'Email', href: `mailto:${EMAIL}`, Icon: FaEnvelope, newTab: false },
+                { label: 'WhatsApp', href: `https://wa.me/9566842195?text=${encodeURIComponent('Hello Maheshwaran!')}`, Icon: FaWhatsapp, newTab: true },
+                { label: 'GitHub', href: 'https://github.com/mahesh-manickavasahar/maheshwaran-portfolio', Icon: FaGithub, newTab: true },
+                { label: 'LinkedIn', href: 'https://www.linkedin.com/in/mahesh-vasu', Icon: FaLinkedin, newTab: true },
+                
+              ].map(({ label, href, Icon, newTab }) => (
+                <motion.a
+                  key={label}
+                  href={href}
+                  target={newTab ? '_blank' : undefined}
+                  rel={newTab ? 'noopener noreferrer' : undefined}
+                  className="flex items-center justify-between gap-3 w-full px-5 py-3 rounded-lg border border-gray-800 bg-dark/50 text-base md:text-lg text-white hover:border-primary hover:bg-primary/10 transition-colors"
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  variants={letterAnimation}
+                >
+                  <span className="flex items-center gap-3">
+                    <Icon className="text-xl text-primary" />
+                    <span>{label}</span>
+                  </span>
+                  <FaExternalLinkAlt className="text-sm text-gray-300" />
+                </motion.a>
+              ))}
             </motion.div>
-
-            {/* Social icons */}
-            <div className="flex justify-center space-x-8 mb-8 md:mb-12">
-              <motion.a
-                whileHover={{ 
-                  scale: 1.2,
-                  rotate: 5,
-                  transition: { duration: 0.2 }
-                }}
-                href="https://github.com/mahesh-manickavasahar/maheshwaran-portfolio"
-                className="text-2xl md:text-3xl text-gray-300 hover:text-primary"
-              >
-                <FaGithub />
-              </motion.a>
-              <motion.a
-                whileHover={{ 
-                  scale: 1.2,
-                  rotate: 5,
-                  transition: { duration: 0.2 }
-                }}
-                href="https://www.linkedin.com/in/mahesh-vasu"
-                className="text-2xl md:text-3xl text-gray-300 hover:text-primary"
-              >
-                <FaLinkedin />
-              </motion.a>
-              <motion.a
-                whileHover={{ 
-                  scale: 1.2,
-                  rotate: 5,
-                  transition: { duration: 0.2 }
-                }}
-                href={`https://wa.me/9566842195?text=${encodeURIComponent('Hello Maheshwaran!')}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-2xl md:text-3xl text-gray-300 hover:text-primary"
-              >
-                <FaWhatsapp />
-              </motion.a>
-            </div>
 
             {/* Contact form */}
             <motion.form 
@@ -1068,8 +1185,9 @@ const App = () => {
                 <motion.input
                   type="text"
                   name="from_name"
-                  value={formData.name}
+                  value={formData.from_name}
                   onChange={handleInputChange}
+                  onFocus={handleInputFocus}
                   placeholder="Your Name"
                   required
                   whileFocus={{ 
@@ -1084,8 +1202,9 @@ const App = () => {
                 <motion.input
                   type="email"
                   name="from_email"
-                  value={formData.email}
+                  value={formData.from_email}
                   onChange={handleInputChange}
+                  onFocus={handleInputFocus}
                   placeholder="Your Email"
                   required
                   whileFocus={{ 
@@ -1101,6 +1220,7 @@ const App = () => {
                   name="message"
                   value={formData.message}
                   onChange={handleInputChange}
+                  onFocus={handleInputFocus}
                   placeholder="Your Message"
                   required
                   rows="4"
@@ -1112,23 +1232,15 @@ const App = () => {
                   className="w-full px-4 py-3 rounded-lg bg-dark/50 border border-gray-800 focus:border-primary focus:outline-none text-base md:text-lg text-white placeholder-gray-400 resize-none"
                 />
               </motion.div>
-              {submitStatus === 'success' && (
-                <motion.p 
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className="text-success text-center text-base md:text-lg"
-                >
-                  Message sent successfully!
-                </motion.p>
-              )}
               {submitStatus === 'error' && (
-                <motion.p 
+                <motion.div 
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   className="text-error text-center text-base md:text-lg"
                 >
-                  Failed to send message. Please try again.
-                </motion.p>
+                  <p className="mb-2">Failed to send message. Please try again.</p>
+                  <p className="text-sm text-gray-400">Check the browser console for error details.</p>
+                </motion.div>
               )}
               <motion.button
                 type="submit"
