@@ -7,6 +7,8 @@ import { useInView } from 'react-intersection-observer';
 import emailjs from '@emailjs/browser';
 import { FaEye } from "react-icons/fa";
 
+console.log("ALL ENV:", import.meta.env);
+
 const App = () => {
   const [ref] = useInView({
     triggerOnce: true,
@@ -193,15 +195,15 @@ const App = () => {
     setSubmitStatus(null);
 
     // Validate environment variables before submitting
-    const serviceId = import.meta.env.VITE_EMAIL_SERVICE_ID;
-    const templateId = import.meta.env.VITE_EMAIL_TEMPLATE_ID;
-    const publicKey = import.meta.env.VITE_EMAIL_PUBLIC_KEY;
+          const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+          const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+          const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
 
     if (!serviceId || !templateId || !publicKey) {
       console.error('Missing EmailJS Configuration:', {
         serviceId: serviceId || 'MISSING',
         templateId: templateId || 'MISSING',
-        publicKey: publicKey ? 'Set' : 'MISSING'
+        publicKey: publicKey  || 'MISSING'
       });
       setSubmitStatus('error');
       setIsSubmitting(false);
@@ -658,7 +660,7 @@ const App = () => {
             className="text-base md:text-xl mb-6 md:mb-8 text-gray-300"
             variants={fadeInUp}
           >
-           Android Developer (2 Years) | Proficient in Kotlin, Jetpack Compose, and XML | Experienced in Android UI Development and SDK Integration
+           Android Developer | 2+ Years Experience | Kotlin, Jetpack Compose, XML, Firebase, REST APIs, Play Store Deployment
           </motion.p>
 
           {/* Skill tags */}
@@ -821,7 +823,7 @@ const App = () => {
                 </div>
                 <ul className="space-y-2 text-gray-300">
                   <li>• Kotlin</li>
-                  <li>• Jetpack Compose & XML Layouts & Views</li>
+                  <li>• Jetpack Compose, XML Layouts, Custom Views </li>
                   <li>• Android SDK & Components </li>
                   <li>• MVVM Architecture</li>
                   <li>• Location Services & GPS</li>
@@ -842,7 +844,7 @@ const App = () => {
                 <ul className="space-y-2 text-gray-300">
                   <li>• MVVM Pattern</li>
                   <li>• Repository Pattern</li>
-                  <li>• RESTful API Integration</li>
+                  <li>• REST API Integration (Retrofit, OkHttp)</li>
                   <li>• Material Design Principles</li>
                   <li>• Third-party Library Integration</li>
                 </ul>
@@ -1044,7 +1046,7 @@ const App = () => {
                   <FaGraduationCap className="text-2xl text-primary" />
                   <h3 className="text-xl font-bold">Bachelor of Engineering – Computer Science and Engineering</h3>
                 </div>
-                <p className="text-primary mb-2">Jeppiaar Engineering College, Chennai | 2019 – 2023</p>
+                <p className="text-primary mb-2">Jeppiaar Engineering College, Chennai ( 2019 – 2023 )</p>
                 <p className="text-gray-300 mb-2">
                   Completed comprehensive coursework in software engineering, data structures, and algorithms.
                 </p>
@@ -1064,7 +1066,7 @@ const App = () => {
                   <FaCode className="text-2xl text-primary" />
                   <h3 className="text-xl font-bold">Java Full Stack Development Certification</h3>
                 </div>
-                <p className="text-primary mb-2">Q-Spiders, Chennai | August 2023 – February 2024</p>
+                <p className="text-primary mb-2">Q-Spiders, Chennai ( August 2023 – February 2024 )</p>
                 <p className="text-gray-300 mb-2">Completed an intensive training program covering:</p>
                 <ul className="text-gray-300 list-disc pl-5 space-y-1">
                   <li>Core Java – Object-Oriented Programming, Collections, Exception Handling</li>
@@ -1107,10 +1109,10 @@ const App = () => {
               whileHover={cardHoverAnimation.whileHover}
             >
               <div className="bg-dark/50 p-6 rounded-xl border border-gray-800">
-                <h3 className="text-xl font-bold mb-2">Junior Android Developer</h3>
+                <h3 className="text-xl font-bold mb-2">Android Developer</h3>
                 <p className="block text-primary mt-2">Milespeak Technologies • 2024 - Present</p>
                 <ul className="space-y-2 text-gray-300">
-                  <li>• Developed and maintained multiple Android applications using Kotlin</li>
+                  <li>• Developed and maintained production Android applications using Kotlin, improving performance, stability, and user experience.</li>
                   <li>• Built responsive UIs using XML layouts, Jetpack Compose, and Material Design principles</li>
                   <li>• Integrated RESTful APIs using Retrofit and OkHttp</li>
                   <li>• Implemented local data storage solutions using Room database and SharedPreferences</li>
