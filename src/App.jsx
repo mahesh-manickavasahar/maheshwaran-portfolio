@@ -143,7 +143,7 @@ const App = () => {
   const cardHoverAnimation = {
     whileHover: {
       scale: 1.02,
-      boxShadow: "0 0 20px rgba(0, 122, 255, 0.15)",
+      boxShadow: "0 0 20px rgba(127, 82, 255, 0.25)",
       transition: {
         duration: 0.2,
         ease: "easeOut"
@@ -294,7 +294,7 @@ const App = () => {
     section: "py-12 md:py-20",
     heading: "text-3xl md:text-4xl",
     container: "px-4 md:px-6",
-    form: "w-full max-w-[90%] md:max-w-2xl mx-auto bg-dark/80 p-6 rounded-xl border border-gray-800", // Added background and padding
+    form: "w-full max-w-[90%] md:max-w-2xl mx-auto bg-card/90 p-6 rounded-xl border border-white/5 shadow-xl", // Added background and padding
   };
 
   const toggleMenu = () => {
@@ -312,7 +312,7 @@ const App = () => {
     <div className="min-h-screen bg-gradient-to-br from-dark to-gray-900 text-light">
       {/* Navigation */}
       <motion.nav 
-        className="fixed w-full bg-dark/90 backdrop-blur-md z-50 border-b border-gray-800"
+        className="fixed w-full bg-dark/80 backdrop-blur-md z-50 border-b border-white/5"
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.3, type: "spring", stiffness: 100 }}
@@ -336,15 +336,17 @@ const App = () => {
               >
               </motion.div>
             <motion.div 
-            className="text-xl md:text-2xl font-bold text-primary"
-            animate={floatingAnimation.animate}
-            transition={{ delay: 0.5 }}
-          >
-            <div className="flex items-center gap-1">
-              <SiKotlin className="text-primary text-xl md:text-2xl" />
-              <span>Maheshwaran</span>
-            </div>
-          </motion.div>
+              className="text-xl md:text-2xl font-extrabold"
+              animate={floatingAnimation.animate}
+              transition={{ delay: 0.5 }}
+            >
+              <div className="flex items-center gap-2">
+                <SiKotlin className="text-[#7F52FF] text-xl md:text-2xl drop-shadow-[0_0_6px_rgba(127,82,255,0.4)]" />
+                <span className="bg-gradient-to-r from-primary via-[#A885FF] to-secondary bg-clip-text text-transparent tracking-wide">
+                  Maheshwaran
+                </span>
+              </div>
+            </motion.div>
 
             </motion.a>
 
@@ -402,7 +404,7 @@ const App = () => {
                     isMenuOpen ? 'rotate-45 translate-y-1.5' : ''
                   }`}
                   animate={{
-                    backgroundColor: isMenuOpen ? "#a4c639" : "#a4c639"
+                    backgroundColor: isMenuOpen ? "#3DDC84" : "#7F52FF"
                   }}
                   transition={{
                     duration: 0.3
@@ -413,7 +415,7 @@ const App = () => {
                     isMenuOpen ? 'opacity-0 scale-x-0' : ''
                   }`}
                   animate={{
-                    backgroundColor: isMenuOpen ? "#a4c639" : "#a4c639"
+                    backgroundColor: isMenuOpen ? "#3DDC84" : "#7F52FF"
                   }}
                   transition={{
                     duration: 0.3
@@ -424,7 +426,7 @@ const App = () => {
                     isMenuOpen ? '-rotate-45 -translate-y-1.5' : ''
                   }`}
                   animate={{
-                    backgroundColor: isMenuOpen ? "#a4c639" : "#a4c639"
+                    backgroundColor: isMenuOpen ? "#3DDC84" : "#7F52FF"
                   }}
                   transition={{
                     duration: 0.3
@@ -442,7 +444,7 @@ const App = () => {
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: -10, scale: 0.95 }}
                 transition={{ duration: 0.2 }}
-                className="md:hidden absolute right-4 top-16 w-48 bg-dark/95 rounded-lg shadow-xl overflow-hidden border border-gray-800"
+                className="md:hidden absolute right-4 top-16 w-48 bg-card/95 rounded-lg shadow-xl overflow-hidden border border-white/10"
               >
                 <div className="flex flex-col py-2">
                   {['About', 'Skills', 'Projects', 'Education', 'Experience', 'Contact'].map((item, index) => (
@@ -480,9 +482,9 @@ const App = () => {
               stiffness: 200, 
               damping: 20 
             }}
-            className="fixed top-20 left-1/2 transform -translate-x-1/2 z-50 bg-dark/95 backdrop-blur-md border-2 border-primary/50 rounded-lg px-6 py-4 shadow-2xl"
+            className="fixed top-20 left-1/2 transform -translate-x-1/2 z-50 bg-card/95 backdrop-blur-md border border-secondary/50 rounded-lg px-6 py-4 shadow-2xl"
             style={{ 
-              boxShadow: "0 10px 40px rgba(164, 198, 57, 0.3)" 
+              boxShadow: "0 10px 40px rgba(61, 220, 132, 0.3)" 
             }}
           >
             <div className="flex items-center justify-center gap-3">
@@ -496,7 +498,7 @@ const App = () => {
                   delay: 0.1
                 }}
               >
-                <FaCheckCircle className="text-3xl md:text-4xl" style={{ color: '#a4c639' }} />
+                <FaCheckCircle className="text-3xl md:text-4xl" style={{ color: '#3DDC84' }} />
               </motion.div>
               <motion.div
                 initial={{ opacity: 0 }}
@@ -504,7 +506,7 @@ const App = () => {
                 transition={{ delay: 0.2 }}
                 className="flex flex-col"
               >
-                <span className="text-base md:text-lg font-semibold" style={{ color: '#a4c639' }}>
+                <span className="text-base md:text-lg font-semibold" style={{ color: '#3DDC84' }}>
                   Message sent successfully!
                 </span>
                 {senderName && (
@@ -531,10 +533,10 @@ const App = () => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 20 }}
             onClick={scrollToTop}
-            className="fixed bottom-8 right-8 bg-dark/80 backdrop-blur-md border border-primary/30 text-primary p-4 rounded-full shadow-lg z-50 transition-all duration-300 hover:border-primary hover:bg-primary/10"
+            className="fixed bottom-8 right-8 bg-card/80 backdrop-blur-md border border-primary/30 text-primary p-4 rounded-full shadow-lg z-50 transition-all duration-300 hover:border-primary hover:bg-primary/10"
             whileHover={{ 
               scale: 1.1,
-              boxShadow: "0 0 20px rgba(0, 122, 255, 0.2)"
+              boxShadow: "0 0 20px rgba(127, 82, 255, 0.25)"
             }}
             whileTap={{ scale: 0.95 }}
           >
@@ -598,7 +600,7 @@ const App = () => {
           animate={floatingAnimation.animate}
           transition={{ delay: 2 }}
         >
-          <MdPhoneAndroid className="text-5xl md:text-7xl mx-auto" style={{ color: '#a4c639' }} />
+          <MdPhoneAndroid className="text-5xl md:text-7xl mx-auto" style={{ color: '#3DDC84' }} />
         </motion.div>
 
         {/* Mouse follower - Optimized for mobile */}
@@ -607,7 +609,7 @@ const App = () => {
           style={{
             width: '200px',
             height: '200px',
-            background: "radial-gradient(circle, rgba(61, 220, 132, 0.15) 0%, rgba(61, 220, 132, 0) 70%)",
+            background: "radial-gradient(circle, rgba(127, 82, 255, 0.15) 0%, rgba(127, 82, 255, 0) 70%)",
             position: 'fixed',
             left: mousePosition.x,
             top: mousePosition.y,
@@ -634,22 +636,31 @@ const App = () => {
         >
           <motion.div
             variants={scaleIn}
-            className="mb-6 md:mb-8"
+            className="mb-6 md:mb-8 flex justify-center animate-bounce-slow"
           >
             <motion.div
               animate={floatingAnimation.animate}
+              className="relative w-28 h-28 md:w-32 md:h-32 flex items-center justify-center"
             >
-              <FaAndroid className="text-6xl md:text-8xl text-primary mx-auto opacity-90" />
+              {/* Outer Pulsing Glow Rings */}
+              <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-primary to-secondary opacity-25 blur-xl animate-pulse"></div>
+              <div className="absolute inset-2 rounded-full border border-white/10 bg-card/80 backdrop-blur-md flex items-center justify-center shadow-2xl"></div>
+              
+              {/* Icons Overlapping */}
+              <div className="relative flex items-center justify-center gap-1.5 z-10">
+                <SiKotlin className="text-primary text-4xl md:text-5xl drop-shadow-[0_0_15px_rgba(127,82,255,0.6)]" />
+                <FaAndroid className="text-secondary text-5xl md:text-6xl drop-shadow-[0_0_15px_rgba(61,220,132,0.6)]" />
+              </div>
             </motion.div>
           </motion.div>
 
           <motion.h1 
-            className="text-3xl md:text-6xl font-bold mb-4 md:mb-6"
+            className="text-3xl md:text-6xl font-bold mb-4 md:mb-6 tracking-tight text-white"
             variants={fadeInUp}
           >
             Android Developer
             <motion.span 
-              className="block text-primary mt-2"
+              className="block bg-gradient-to-r from-primary via-[#A885FF] to-secondary bg-clip-text text-transparent font-extrabold mt-2"
               variants={fadeInUp}
             >
               Maheshwaran
@@ -657,10 +668,25 @@ const App = () => {
           </motion.h1>
 
           <motion.p 
-            className="text-base md:text-xl mb-6 md:mb-8 text-gray-300"
+            className="text-base md:text-xl mb-3 text-gray-200 max-w-2xl mx-auto font-medium"
             variants={fadeInUp}
           >
-           Android Developer | 2+ Years Experience | Kotlin, Jetpack Compose, XML, Firebase, REST APIs, Play Store Deployment
+            Android Developer crafting scalable and user-friendly mobile apps using Kotlin, Jetpack Compose, XML Layouts, and modern Android architecture.
+          </motion.p>
+          
+          <motion.p 
+            className="text-xs md:text-sm mb-6 md:mb-8 text-secondary font-bold tracking-wider uppercase flex flex-wrap justify-center gap-x-3 gap-y-1 max-w-2xl mx-auto"
+            variants={fadeInUp}
+          >
+            <span>2+ Years Experience</span>
+            <span className="text-gray-600 hidden sm:inline">•</span>
+            <span>Play Store Deployment</span>
+            <span className="text-gray-600 hidden sm:inline">•</span>
+            <span>MVVM</span>
+            <span className="text-gray-600 hidden sm:inline">•</span>
+            <span>Firebase</span>
+            <span className="text-gray-600 hidden sm:inline">•</span>
+            <span>REST APIs</span>
           </motion.p>
 
           {/* Skill tags */}
@@ -675,7 +701,7 @@ const App = () => {
                 variants={letterAnimation}
                 whileHover={{
                   scale: 1.05,
-                  backgroundColor: "rgba(61, 220, 132, 0.2)"
+                  backgroundColor: "rgba(127, 82, 255, 0.2)"
                 }}
                 transition={{ delay: 0.1 * index }}
               >
@@ -690,7 +716,7 @@ const App = () => {
           >
             <motion.button
               {...enhancedHoverAnimation}
-              className="bg-transparent border-2 border-primary text-primary hover:bg-primary/10 px-6 py-2.5 md:px-8 md:py-3 rounded-full text-base md:text-lg font-semibold transition-colors flex items-center justify-center gap-2"
+              className="bg-transparent border border-white/10 hover:border-primary text-light hover:bg-primary/5 px-6 py-2.5 md:px-8 md:py-3 rounded-full text-base md:text-lg font-semibold transition-all duration-300 flex items-center justify-center gap-2"
               onClick={handleViewProjects}
             >
               <motion.div
@@ -709,7 +735,7 @@ const App = () => {
             </motion.button>
             <motion.button
               {...enhancedHoverAnimation}
-              className="bg-transparent border-2 border-primary text-primary hover:bg-primary/10 px-6 py-2.5 md:px-8 md:py-3 rounded-full text-base md:text-lg font-semibold transition-colors flex items-center justify-center gap-2"
+              className="bg-transparent border border-white/10 hover:border-primary text-light hover:bg-primary/5 px-6 py-2.5 md:px-8 md:py-3 rounded-full text-base md:text-lg font-semibold transition-all duration-300 flex items-center justify-center gap-2"
               onClick={handleDownloadResume}
             >
               <motion.div
@@ -728,7 +754,7 @@ const App = () => {
             </motion.button>
            <motion.button
               {...enhancedHoverAnimation}
-              className="bg-transparent border-2 border-primary text-primary hover:bg-primary/10 px-6 py-2.5 md:px-8 md:py-3 rounded-full text-base md:text-lg font-semibold transition-colors flex items-center justify-center gap-2"
+              className="bg-transparent border border-white/10 hover:border-primary text-light hover:bg-primary/5 px-6 py-2.5 md:px-8 md:py-3 rounded-full text-base md:text-lg font-semibold transition-all duration-300 flex items-center justify-center gap-2"
               onClick={handleViewResume}
             >
               <motion.div
@@ -765,11 +791,13 @@ const App = () => {
             variants={staggerContainer}
           >
             <motion.h2 
-              className={`${mobileStyles.heading} font-bold mb-8 text-center`}
+              className={`${mobileStyles.heading} font-bold mb-12 text-center flex flex-col items-center gap-3`}
               variants={letterAnimation}
             >
-              About Me
+              <span>About Me</span>
+              <div className="w-16 h-1 bg-gradient-to-r from-primary to-secondary rounded-full shadow-[0_0_8px_rgba(127,82,255,0.4)] animate-pulse" />
             </motion.h2>
+            
             <motion.div 
               className="space-y-6 text-lg text-gray-300 leading-relaxed"
               variants={letterAnimation}
@@ -786,6 +814,21 @@ const App = () => {
               <p>
                 I'm passionate about writing clean, maintainable code and staying updated with the latest Android development trends and best practices. I enjoy tackling challenging problems and continuously enhancing my technical skills.
               </p>
+              
+              {/* Stats Highlights */}
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-10 pt-8 border-t border-white/5">
+                {[
+                  { label: "Core Langs", value: "Kotlin & Java" },
+                  { label: "Architecture", value: "MVVM & Clean" },
+                  { label: "UI Toolkit", value: "Compose & XML" },
+                  { label: "Release", value: "Google Play Store" }
+                ].map((stat, i) => (
+                  <div key={i} className="flex flex-col p-3 rounded-lg bg-card/40 border border-white/5 hover:border-primary/30 transition-colors text-center">
+                    <span className="text-xs text-gray-400 font-medium">{stat.label}</span>
+                    <span className="text-sm text-white font-bold mt-1 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">{stat.value}</span>
+                  </div>
+                ))}
+              </div>
             </motion.div>
           </motion.div>
         </div>
@@ -802,10 +845,11 @@ const App = () => {
       >
         <div className="container mx-auto px-6">
           <motion.h2 
-            className="text-4xl font-bold mb-12 text-center"
+            className="text-4xl font-bold mb-12 text-center flex flex-col items-center gap-3"
             variants={letterAnimation}
           >
-            Technical Skills
+            <span>Technical Skills</span>
+            <div className="w-16 h-1 bg-gradient-to-r from-primary to-secondary rounded-full shadow-[0_0_8px_rgba(127,82,255,0.4)] animate-pulse" />
           </motion.h2>
           <motion.div 
             className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
@@ -816,7 +860,7 @@ const App = () => {
               variants={letterAnimation}
               whileHover={cardHoverAnimation.whileHover}
             >
-              <div className="bg-dark/50 rounded-xl p-6 border border-gray-800">
+              <div className="bg-card rounded-xl p-6 border border-white/5 shadow-lg">
                 <div className="flex items-center gap-3 mb-4">
                   <FaAndroid className="text-2xl text-primary" />
                   <h3 className="text-xl font-bold">Android Development</h3>
@@ -836,7 +880,7 @@ const App = () => {
               variants={letterAnimation}
               whileHover={cardHoverAnimation.whileHover}
             >
-              <div className="bg-dark/50 rounded-xl p-6 border border-gray-800">
+              <div className="bg-card rounded-xl p-6 border border-white/5 shadow-lg">
                 <div className="flex items-center gap-3 mb-4">
                   <FaJava className="text-2xl text-primary" />
                   <h3 className="text-xl font-bold">Architecture & Design</h3>
@@ -856,7 +900,7 @@ const App = () => {
               variants={letterAnimation}
               whileHover={cardHoverAnimation.whileHover}
             >
-              <div className="bg-dark/50 rounded-xl p-6 border border-gray-800">
+              <div className="bg-card rounded-xl p-6 border border-white/5 shadow-lg">
                 <div className="flex items-center gap-3 mb-4">
                   <FaTools className="text-2xl text-primary" />
                   <h3 className="text-xl font-bold">Tools & Technologies</h3>
@@ -885,10 +929,11 @@ const App = () => {
       >
         <div className="container mx-auto px-6">
           <motion.h2 
-            className="text-4xl font-bold mb-12 text-center"
+            className="text-4xl font-bold mb-12 text-center flex flex-col items-center gap-3"
             variants={letterAnimation}
           >
-            Featured Projects
+            <span>Featured Projects</span>
+            <div className="w-16 h-1 bg-gradient-to-r from-primary to-secondary rounded-full shadow-[0_0_8px_rgba(127,82,255,0.4)] animate-pulse" />
           </motion.h2>
           <motion.div 
             className="grid grid-cols-1 gap-8"
@@ -899,12 +944,12 @@ const App = () => {
               variants={letterAnimation}
               whileHover={cardHoverAnimation.whileHover}
             >
-              <div className="bg-dark/50 rounded-xl overflow-hidden border border-gray-800">
+              <div className="bg-card rounded-xl overflow-hidden border border-white/5 shadow-lg">
                
-                  <div className="h-64 md:h-72 flex items-center justify-center bg-gradient-to-br from-[#a4c63915] via-[#a4c63908] to-transparent relative overflow-hidden">
-                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#a4c63905] to-transparent animate-pulse"></div>
+                  <div className="h-64 md:h-72 flex items-center justify-center bg-gradient-to-br from-[#7F52FF15] via-[#7F52FF08] to-transparent relative overflow-hidden">
+                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#7F52FF05] to-transparent animate-pulse"></div>
                     <div className="relative h-40 w-40 sm:h-48 sm:w-48 md:h-56 md:w-56 flex items-center justify-center p-4">
-                      <div className="absolute inset-0 bg-[#a4c63910] rounded-2xl blur-xl"></div>
+                      <div className="absolute inset-0 bg-[#7F52FF10] rounded-2xl blur-xl"></div>
                       <img 
                         src="/ic-jusride.png"  
                         alt="Jusride" 
@@ -917,7 +962,7 @@ const App = () => {
                   <h3 className="text-xl font-bold mb-2">Wattawow – Ride Companion App</h3>
                   <p className="text-gray-300 mb-2">
                     <span className="font-semibold">White-labeled as "JusRide" on Play Store</span><br/>
-                    <span className="block">Role: <span style={{ color: '#a4c639' }}>Android Developer</span></span>
+                    <span className="block">Role: <span className="text-secondary font-semibold">Android Developer</span></span>
                     <span className="block">Tech Stack: Kotlin, Ola Maps SDK, Retrofit, Firebase (FCM, Auth, Analytics), ViewPager2, Glide</span>
                     <span className="block">Duration: February 2024 - Present (Production App)</span>
                   </p>
@@ -946,19 +991,19 @@ const App = () => {
                     <li>Achieved consistent month-over-month user growth with positive user feedback</li>
                   </ul>
                   <div className="flex flex-wrap gap-2 mb-2">
-                    <span className="px-3 py-1 rounded-full text-sm" style={{ backgroundColor: '#a4c63922', color: '#a4c639' }}>Kotlin</span>
-                    <span className="px-3 py-1 rounded-full text-sm" style={{ backgroundColor: '#a4c63922', color: '#a4c639' }}>Ola Maps SDK</span>
-                    <span className="px-3 py-1 rounded-full text-sm" style={{ backgroundColor: '#a4c63922', color: '#a4c639' }}>Retrofit</span>
-                    <span className="px-3 py-1 rounded-full text-sm" style={{ backgroundColor: '#a4c63922', color: '#a4c639' }}>Firebase Cloud Messaging</span>
-                    <span className="px-3 py-1 rounded-full text-sm" style={{ backgroundColor: '#a4c63922', color: '#a4c639' }}>Firebase Auth</span>
-                    <span className="px-3 py-1 rounded-full text-sm" style={{ backgroundColor: '#a4c63922', color: '#a4c639' }}>Firebase Analytics</span>
-                    <span className="px-3 py-1 rounded-full text-sm" style={{ backgroundColor: '#a4c63922', color: '#a4c639' }}>ViewPager2</span>
-                    <span className="px-3 py-1 rounded-full text-sm" style={{ backgroundColor: '#a4c63922', color: '#a4c639' }}>Glide</span>
-                    <span className="px-3 py-1 rounded-full text-sm" style={{ backgroundColor: '#a4c63922', color: '#a4c639' }}>Room Database</span>
-                    <span className="px-3 py-1 rounded-full text-sm" style={{ backgroundColor: '#a4c63922', color: '#a4c639' }}>Payment Gateway</span>
+                    <span className="px-3 py-1 rounded-full text-sm bg-primary/10 text-primary">Kotlin</span>
+                    <span className="px-3 py-1 rounded-full text-sm bg-primary/10 text-primary">Ola Maps SDK</span>
+                    <span className="px-3 py-1 rounded-full text-sm bg-primary/10 text-primary">Retrofit</span>
+                    <span className="px-3 py-1 rounded-full text-sm bg-primary/10 text-primary">Firebase Cloud Messaging</span>
+                    <span className="px-3 py-1 rounded-full text-sm bg-primary/10 text-primary">Firebase Auth</span>
+                    <span className="px-3 py-1 rounded-full text-sm bg-primary/10 text-primary">Firebase Analytics</span>
+                    <span className="px-3 py-1 rounded-full text-sm bg-primary/10 text-primary">ViewPager2</span>
+                    <span className="px-3 py-1 rounded-full text-sm bg-primary/10 text-primary">Glide</span>
+                    <span className="px-3 py-1 rounded-full text-sm bg-primary/10 text-primary">Room Database</span>
+                    <span className="px-3 py-1 rounded-full text-sm bg-primary/10 text-primary">Payment Gateway</span>
                   </div>
                   <div className="flex items-center gap-2 mt-2">
-                    <a href="https://play.google.com/store/apps/details?id=com.milespeak.jusridemobile&pcampaignid=web_share" target="_blank" rel="noopener noreferrer" className="underline font-medium" style={{ color: '#a4c639' }}>🔗 Live App: JusRide on Play Store</a>
+                    <a href="https://play.google.com/store/apps/details?id=com.milespeak.jusridemobile&pcampaignid=web_share" target="_blank" rel="noopener noreferrer" className="underline font-medium text-secondary hover:text-secondary/80 transition-colors">🔗 Live App: JusRide on Play Store</a>
                   </div>
                   <div className="text-xs text-gray-400 mt-2">📝 Note: JusRide is a client-branded, white-labeled version of Wattawow, developed by our team.</div>
                 </div>
@@ -970,11 +1015,11 @@ const App = () => {
               variants={letterAnimation}
               whileHover={cardHoverAnimation.whileHover}
             >
-              <div className="bg-dark/50 rounded-xl overflow-hidden border border-gray-800">
-                                  <div className="h-64 md:h-72 flex items-center justify-center bg-gradient-to-br from-[#a4c63915] via-[#a4c63908] to-transparent relative overflow-hidden">
-                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#a4c63905] to-transparent animate-pulse"></div>
+              <div className="bg-card rounded-xl overflow-hidden border border-white/5 shadow-lg">
+                                  <div className="h-64 md:h-72 flex items-center justify-center bg-gradient-to-br from-[#3DDC8415] via-[#3DDC8408] to-transparent relative overflow-hidden">
+                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#3DDC8405] to-transparent animate-pulse"></div>
                     <div className="relative h-40 w-40 sm:h-48 sm:w-48 md:h-56 md:w-56 flex items-center justify-center p-4">
-                      <div className="absolute inset-0 bg-[#a4c63910] rounded-2xl blur-xl"></div>
+                      <div className="absolute inset-0 bg-[#3DDC8410] rounded-2xl blur-xl"></div>
                       <img 
                         src="/ic-ems.png"  
                         alt="Leave Management System" 
@@ -986,7 +1031,7 @@ const App = () => {
                 <div className="p-6">
                   <h3 className="text-xl font-bold mb-2">Leave Management App (Internal Training Project)</h3>
                   <p className="text-gray-300 mb-2">
-                    <span className="block">Role: <span style={{ color: '#a4c639' }}>Android Developer (Trainee)</span></span>
+                    <span className="block">Role: <span className="text-secondary font-semibold">Android Developer (Trainee)</span></span>
                     <span className="block">Tech Stack: Kotlin, Jetpack Compose, Firebase, Room Database, MVVM</span>
                     <span className="block">Duration: 3 months (During initial company training)</span>
                   </p>
@@ -1000,11 +1045,11 @@ const App = () => {
                     <li>Managed version control and team collaboration via Bitbucket repositories.</li>
                   </ul>
                   <div className="flex flex-wrap gap-2 mb-2">
-                    <span className="px-3 py-1 rounded-full text-sm" style={{ backgroundColor: '#a4c63922', color: '#a4c639' }}>Kotlin</span>
-                    <span className="px-3 py-1 rounded-full text-sm" style={{ backgroundColor: '#a4c63922', color: '#a4c639' }}>Jetpack Compose</span>
-                    <span className="px-3 py-1 rounded-full text-sm" style={{ backgroundColor: '#a4c63922', color: '#a4c639' }}>Firebase</span>
-                    <span className="px-3 py-1 rounded-full text-sm" style={{ backgroundColor: '#a4c63922', color: '#a4c639' }}>Room Database</span>
-                    <span className="px-3 py-1 rounded-full text-sm" style={{ backgroundColor: '#a4c63922', color: '#a4c639' }}>MVVM</span>
+                    <span className="px-3 py-1 rounded-full text-sm bg-primary/10 text-primary">Kotlin</span>
+                    <span className="px-3 py-1 rounded-full text-sm bg-primary/10 text-primary">Jetpack Compose</span>
+                    <span className="px-3 py-1 rounded-full text-sm bg-primary/10 text-primary">Firebase</span>
+                    <span className="px-3 py-1 rounded-full text-sm bg-primary/10 text-primary">Room Database</span>
+                    <span className="px-3 py-1 rounded-full text-sm bg-primary/10 text-primary">MVVM</span>
                   </div>
                   <div className="text-xs text-gray-400 mt-2">📌 Note: This app was created for internal training purposes and is not actively used in production.</div>
                 </div>
@@ -1027,10 +1072,11 @@ const App = () => {
       >
         <div className="container mx-auto px-6">
           <motion.h2 
-            className="text-4xl font-bold mb-12 text-center"
+            className="text-4xl font-bold mb-12 text-center flex flex-col items-center gap-3"
             variants={letterAnimation}
           >
-            Education & Certifications
+            <span>Education & Certifications</span>
+            <div className="w-16 h-1 bg-gradient-to-r from-primary to-secondary rounded-full shadow-[0_0_8px_rgba(127,82,255,0.4)] animate-pulse" />
           </motion.h2>
           <motion.div 
             className="max-w-3xl mx-auto space-y-8"
@@ -1041,7 +1087,7 @@ const App = () => {
               variants={letterAnimation}
               whileHover={cardHoverAnimation.whileHover}
             >
-              <div className="bg-dark/50 p-6 rounded-xl border border-gray-800">
+              <div className="bg-card p-6 rounded-xl border border-white/5 shadow-lg">
                 <div className="flex items-center gap-3 mb-3">
                   <FaGraduationCap className="text-2xl text-primary" />
                   <h3 className="text-xl font-bold">Bachelor of Engineering – Computer Science and Engineering</h3>
@@ -1061,7 +1107,7 @@ const App = () => {
               variants={letterAnimation}
               whileHover={cardHoverAnimation.whileHover}
             >
-              <div className="bg-dark/50 p-6 rounded-xl border border-gray-800">
+              <div className="bg-card p-6 rounded-xl border border-white/5 shadow-lg">
                 <div className="flex items-center gap-3 mb-3">
                   <FaCode className="text-2xl text-primary" />
                   <h3 className="text-xl font-bold">Java Full Stack Development Certification</h3>
@@ -1094,10 +1140,11 @@ const App = () => {
       >
         <div className="container mx-auto px-6">
           <motion.h2 
-            className="text-4xl font-bold mb-12 text-center"
+            className="text-4xl font-bold mb-12 text-center flex flex-col items-center gap-3"
             variants={letterAnimation}
           >
-            Work Experience
+            <span>Work Experience</span>
+            <div className="w-16 h-1 bg-gradient-to-r from-primary to-secondary rounded-full shadow-[0_0_8px_rgba(127,82,255,0.4)] animate-pulse" />
           </motion.h2>
           <motion.div 
             className="max-w-3xl mx-auto space-y-8"
@@ -1108,7 +1155,7 @@ const App = () => {
               variants={letterAnimation}
               whileHover={cardHoverAnimation.whileHover}
             >
-              <div className="bg-dark/50 p-6 rounded-xl border border-gray-800">
+              <div className="bg-card p-6 rounded-xl border border-white/5 shadow-lg">
                 <h3 className="text-xl font-bold mb-2">Android Developer</h3>
                 <p className="block text-primary mt-2">Milespeak Technologies • 2024 - Present</p>
                 <ul className="space-y-2 text-gray-300">
@@ -1136,10 +1183,11 @@ const App = () => {
       >
         <div className={`container mx-auto ${mobileStyles.container}`}>
           <motion.h2 
-            className={`${mobileStyles.heading} font-bold mb-8 text-center`}
+            className={`${mobileStyles.heading} font-bold mb-10 text-center flex flex-col items-center gap-3`}
             variants={letterAnimation}
           >
-            Get In Touch
+            <span>Get In Touch</span>
+            <div className="w-16 h-1 bg-gradient-to-r from-primary to-secondary rounded-full shadow-[0_0_8px_rgba(127,82,255,0.4)] animate-pulse" />
           </motion.h2>
           <motion.div 
             className="max-w-2xl mx-auto"
@@ -1162,7 +1210,7 @@ const App = () => {
                   href={href}
                   target={newTab ? '_blank' : undefined}
                   rel={newTab ? 'noopener noreferrer' : undefined}
-                  className="flex items-center justify-between gap-3 w-full px-5 py-3 rounded-lg border border-gray-800 bg-dark/50 text-base md:text-lg text-white hover:border-primary hover:bg-primary/10 transition-colors"
+                  className="flex items-center justify-between gap-3 w-full px-5 py-3 rounded-lg border border-white/5 bg-card text-base md:text-lg text-white hover:border-primary hover:bg-primary/10 transition-colors"
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                   variants={letterAnimation}
@@ -1194,10 +1242,10 @@ const App = () => {
                   required
                   whileFocus={{ 
                     scale: 1.01,
-                    boxShadow: "0 0 15px rgba(0, 122, 255, 0.15)",
+                    boxShadow: "0 0 15px rgba(127, 82, 255, 0.25)",
                     transition: { duration: 0.2 }
                   }}
-                  className="w-full px-4 py-3 rounded-lg bg-dark/50 border border-gray-800 focus:border-primary focus:outline-none text-base md:text-lg text-white placeholder-gray-400"
+                  className="w-full px-4 py-3 rounded-lg bg-dark/50 border border-white/10 focus:border-primary focus:outline-none text-base md:text-lg text-white placeholder-gray-400"
                 />
               </motion.div>
               <motion.div variants={letterAnimation}>
@@ -1211,10 +1259,10 @@ const App = () => {
                   required
                   whileFocus={{ 
                     scale: 1.01,
-                    boxShadow: "0 0 15px rgba(0, 122, 255, 0.15)",
+                    boxShadow: "0 0 15px rgba(127, 82, 255, 0.25)",
                     transition: { duration: 0.2 }
                   }}
-                  className="w-full px-4 py-3 rounded-lg bg-dark/50 border border-gray-800 focus:border-primary focus:outline-none text-base md:text-lg text-white placeholder-gray-400"
+                  className="w-full px-4 py-3 rounded-lg bg-dark/50 border border-white/10 focus:border-primary focus:outline-none text-base md:text-lg text-white placeholder-gray-400"
                 />
               </motion.div>
               <motion.div variants={letterAnimation}>
@@ -1228,10 +1276,10 @@ const App = () => {
                   rows="4"
                   whileFocus={{ 
                     scale: 1.01,
-                    boxShadow: "0 0 15px rgba(0, 122, 255, 0.15)",
+                    boxShadow: "0 0 15px rgba(127, 82, 255, 0.25)",
                     transition: { duration: 0.2 }
                   }}
-                  className="w-full px-4 py-3 rounded-lg bg-dark/50 border border-gray-800 focus:border-primary focus:outline-none text-base md:text-lg text-white placeholder-gray-400 resize-none"
+                  className="w-full px-4 py-3 rounded-lg bg-dark/50 border border-white/10 focus:border-primary focus:outline-none text-base md:text-lg text-white placeholder-gray-400 resize-none"
                 />
               </motion.div>
               {submitStatus === 'error' && (
@@ -1249,7 +1297,7 @@ const App = () => {
                 disabled={isSubmitting}
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.98 }}
-                className="w-full bg-primary hover:bg-secondary text-white px-6 py-3 rounded-lg text-base md:text-lg font-semibold transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full bg-card border border-white/5 text-white hover:border-primary hover:bg-primary/10 px-6 py-3 rounded-lg text-base md:text-lg font-semibold transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {isSubmitting ? 'Sending...' : 'Send Message'}
               </motion.button>
@@ -1260,7 +1308,7 @@ const App = () => {
 
       {/* Footer */}
       <motion.footer 
-        className="py-8 bg-dark"
+        className="py-8 bg-[#0B0D10]"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: "-100px" }}
@@ -1286,9 +1334,9 @@ const App = () => {
         className="fixed inset-0 bg-gradient-to-br from-dark to-gray-900"
         animate={{
           background: [
-            "linear-gradient(to bottom right, #1C1C1E, #2C2C2E)",
-            "linear-gradient(to bottom right, #1C1C1E, #3C3C3E)",
-            "linear-gradient(to bottom right, #1C1C1E, #2C2C2E)"
+            "linear-gradient(to bottom right, #0F1115, #161224)",
+            "linear-gradient(to bottom right, #0F1115, #0B1310)",
+            "linear-gradient(to bottom right, #0F1115, #161224)"
           ]
         }}
         transition={{

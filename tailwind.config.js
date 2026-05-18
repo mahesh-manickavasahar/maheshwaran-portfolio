@@ -7,14 +7,15 @@ export default {
   theme: {
     extend: {
       colors: {
-        dark: '#0F172A',
-        light: '#F1F5F9',
-        primary: '#a4c639', // Android green
-        secondary: "#073042", // Android blue
-        accent: "#FF7043", // Android accent
-        success: "#3DDC84", // Android green in HEX
-        warning: "#FFA726", // Android orange
-        error: "#FF5252", // Android red
+        dark: '#0F1115',
+        card: '#1A1D24',
+        light: '#FFFFFF',
+        primary: '#7F52FF', // Kotlin purple
+        secondary: '#3DDC84', // Android green
+        accent: '#3DDC84',
+        success: '#3DDC84',
+        warning: '#FFA726',
+        error: '#FF5252',
         gray: {
           100: "#F5F5F5",
           200: "#EEEEEE",
